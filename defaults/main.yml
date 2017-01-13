@@ -9,11 +9,11 @@ postfix_install:
 postfix_hostname: "{{ansible_fqdn}}"
 postfix_mailname: "{{ansible_fqdn}}"
 postfix_aliases: []
-postfix_relayhost: "False" 
+postfix_relayhost: "False"
 postfix_relayhost_port: 587
-postfix_relaytls: "False" 
+postfix_relaytls: "False"
 postfix_sasl_user: "postmaster@{{ansible_domain}}"
-postfix_sasl_password: 'k8+haga4@#pR'
+postfix_sasl_password: 'postfix'
 postfix_inet_interfaces: all
 
 postfix_debconf_selections:

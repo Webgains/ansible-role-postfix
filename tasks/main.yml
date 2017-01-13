@@ -11,7 +11,7 @@
   sudo: yes
   apt:
     name: "{{item}}"
-    state: present 
+    state: present
     force: yes
     update_cache: yes
   with_items: postfix_install
@@ -27,7 +27,7 @@
 
 - name: Update configuration file
   template:
-    src: etc/postfix/main.cf.j2
+    src: postfix/main.cf.j2
     dest: /etc/postfix/main.cf
     owner: root
     group: root
@@ -36,12 +36,12 @@
 
 - name: Configure sasl username/password
   template:
-    src: etc/postfix/sasl_passwd.j2
+    src: sasl_passwd.j2
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root
     mode: 0600
-  when: postfix_relayhost == "True" 
+  when: postfix_relayhost == "True"
   notify:
     - Postmap sasl_passwd
     - Restart postfix
