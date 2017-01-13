@@ -1,4 +1,7 @@
 
+[![BuildStatus](https://travis-ci.org/indix/ansible-postfix.svg?branch=master)](https://travis-ci.org/indix/ansible-postfix)
+
+
 For postfix role having gather_facts is mandatory since there are few configs which rely on ansible_fqdn.
 
 
