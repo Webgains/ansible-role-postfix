@@ -27,7 +27,7 @@
 
 - name: Update configuration file
   template:
-    src: postfix/main.cf.j2
+    src: main.cf.j2
     dest: /etc/postfix/main.cf
     owner: root
     group: root
