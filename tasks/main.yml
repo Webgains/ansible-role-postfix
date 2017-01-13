@@ -1,0 +1,66 @@
+---
+- name: Configure debconf
+  debconf:
+    name: "{{item.name}}"
+    question: "{{item.question}}"
+    value: "{{item.value}}"
+    vtype: "{{item.vtype}}"
+  with_items: postfix_debconf_selections
+
+- name: Install package
+  sudo: yes
+  apt:
+    name: "{{item}}"
+    state: present 
+    force: yes
+    update_cache: yes
+  with_items: postfix_install
+
+- name: Configure mailname
+  template:
+    src: etc/mailname.j2
+    dest: /etc/mailname
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart postfix
+
+- name: Update configuration file
+  template:
+    src: etc/postfix/main.cf.j2
+    dest: /etc/postfix/main.cf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart postfix
+
+- name: Configure sasl username/password
+  template:
+    src: etc/postfix/sasl_passwd.j2
+    dest: /etc/postfix/sasl_passwd
+    owner: root
+    group: root
+    mode: 0600
+  when: postfix_relayhost == "True" 
+  notify:
+    - Postmap sasl_passwd
+    - Restart postfix
+
+- name: Configure aliases
+  lineinfile:
+    dest: /etc/aliases
+    regexp: '^{{item.user}}:\s+{{item.alias}}'
+    line: '{{item.user}}: {{item.alias}}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items: postfix_aliases
+  notify:
+    - New aliases
+    - Restart postfix
+
+- name: Start and enable service
+  service:
+    name: postfix
+    state: started
+    enabled: true

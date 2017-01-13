@@ -1,0 +1,12 @@
+# handlers file for postfix
+---
+- name: Restart postfix
+  service:
+    name: postfix
+    state: restarted
+
+- name: New aliases
+  command: newaliases
+
+- name: Postmap sasl_passwd
+  command: postmap hash:/etc/postfix/sasl_passwd
