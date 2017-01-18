@@ -14,7 +14,7 @@
     state: present
     force: yes
     update_cache: yes
-  with_items: postfix_install
+  with_items: "{{ postfix_install }}"
 
 - name: Configure mailname
   template:
@@ -54,7 +54,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items: postfix_aliases
+  with_items: "{{ postfix_aliases }}"
   notify:
     - New aliases
     - Restart postfix
