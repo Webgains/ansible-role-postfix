@@ -5,7 +5,7 @@
     question: "{{item.question}}"
     value: "{{item.value}}"
     vtype: "{{item.vtype}}"
-  with_items: postfix_debconf_selections
+  with_dict: "{{ postfix_debconf_selections }}"
 
 - name: Install package
   sudo: yes

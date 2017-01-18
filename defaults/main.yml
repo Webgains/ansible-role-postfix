@@ -18,6 +18,6 @@ postfix_inet_interfaces: all
 
 postfix_debconf_selections:
  - name: postfix
- - question: postfix/main_mailer_type
- - value: No configuration
- - vtype: select
+   question: postfix/main_mailer_type
+   value: 'No configuration'
+   vtype: select
