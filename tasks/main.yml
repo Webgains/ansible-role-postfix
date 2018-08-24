@@ -8,7 +8,7 @@
   with_items: "{{ postfix_debconf_selections }}"
 
 - name: Install package
-  sudo: yes
+  become: yes
   apt:
     name: "{{item}}"
     state: present
@@ -41,7 +41,7 @@
     owner: root
     group: root
     mode: 0600
-  when: postfix_relayhost == "True"
+  when: postfix_relayhost != "False"
   notify:
     - Postmap sasl_passwd
     - Restart postfix

@@ -38,12 +38,12 @@ recipient_delimiter = +
 inet_interfaces = {{ postfix_inet_interfaces }}
 inet_protocols = ipv4
 
-{% if postfix_relayhost == "True" %}
+{% if postfix_relayhost != "False" %}
 relayhost = [{{ postfix_relayhost }}]:{{ postfix_relayhost_port }}
 smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
-{% if postfix_relaytls == "True" %}
+{% if postfix_relaytls %}
 smtp_use_tls = yes
 smtp_tls_security_level = encrypt
 smtp_tls_note_starttls_offer = yes
